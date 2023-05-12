@@ -2,6 +2,7 @@
 [Login to the Server](login_server.md)  
 [Change your password](change_pass.md)  
 [Running programs in background](background.md)  
+[Using the storage server and compressing data](Compress_files.md)  
 
 ## Help Running Programs on our Linux Servers ##
 [Installation of Local Perl Modules](local_perl.md)  
