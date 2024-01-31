@@ -6,10 +6,11 @@ This installation instruction is only for Python 3.7 user.
 
 Anaconda needs Python 3.7 environment
 
-## Download anaconda
+## Download anaconda or miniconda
 
     cd ~/Downloads
     wget https://repo.anaconda.com/archive/Anaconda3-2023.03-Linux-x86_64.sh
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh (optinal)
 
 ## Running installation script
 
