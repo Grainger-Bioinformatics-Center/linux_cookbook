@@ -31,11 +31,11 @@ The GPU 0 and 1 and GPU 2 and 3 are nv-linked, respectively. So, the best way to
 
 ## Ways to check for GPU usage before running any program:
 
-1) (h)top like task monitor for GPUs and accelerators:
+    1) (h)top like task monitor for GPUs and accelerators:
 
     nvtop
 
-2) System Management Interface SMI (utility allows administrators to query GPU device state):
+    2) System Management Interface SMI (utility allows administrators to query GPU device state):
 
     nvidia-smi
     nvidia-smi topo -m (check for the link method between GPUs)
