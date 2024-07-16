@@ -24,6 +24,7 @@
 [Installation of QIIME](install_QIIMEE.md)  
  
 ## Genome Assembly ##
+[Nanopore sequencing basecalling usin Dorado](Dorado.md)
 [Genomes Assembly](assembly.md)
 
 ## BUSCO and Phylogeny analysis ##
