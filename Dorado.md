@@ -1,6 +1,6 @@
 # Nanopore basecalling with Dorado
 
-Dorado is a high-performance, easy-to-use, open source basecaller for Oxford Nanopore reads. And it will be benefit from using the GPU server for accelerate the process due to using the PyTorch library. For more detail, Please see the orignal readme file from [Dorado](https://github.com/nanoporetech/dorado/blob/release-v0.7/README.md)
+Dorado is a high-performance, easy-to-use, open source basecaller for Oxford Nanopore reads. And it will be benefit from using the GPU server for accelerate the process due to using the PyTorch library. For more detail, Please see the orignal readme file from [Dorado](https://github.com/nanoporetech/dorado/blob/release-v0.7/README.md).
 
 ## Installation
 
