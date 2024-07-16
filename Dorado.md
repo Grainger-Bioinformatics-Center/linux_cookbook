@@ -12,7 +12,7 @@ cd ~/opt
 wget https://cdn.oxfordnanoportal.com/software/analysis/dorado-0.7.2-linux-x64.tar.gz
 ```
 
-Unzip the tar.gz then you can then call Dorado using the path
+Unzip the tar.gz then you can call Dorado using the path
 
 ```
 tar -xvzf dorado-0.7.2-linux-x64.tar.gz
