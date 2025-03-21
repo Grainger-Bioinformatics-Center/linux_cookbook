@@ -17,10 +17,12 @@ Create a new conda environment (e.g., `btk_env`) and install the required tools:
 ```bash
 conda create -n btk_env python=3.13
 conda activate btk_env
+```
+
 
 Then install additional dependencies using conda. For example:
 
-# Install BLAST+, Bowtie2, and SAMtools from the bioconda channel
+#### Install BLAST+, Bowtie2, and SAMtools from the bioconda channel
 
 ```bash
 conda install -c bioconda blast+ bowtie2 samtools
@@ -30,6 +32,7 @@ conda install -c bioconda blast+ bowtie2 samtools
 
 ```bash
 pip install blobtoolkit
+```
 
 By default, the script assumes that BlobToolKit2 is located at:
 /home/FM/user_name/miniforge3/envs/btk_env/bin/blobtools
@@ -47,30 +50,31 @@ mkdir -p "$BLASTDB"
 # Use update_blastdb.pl to download and decompress the nt database.
 # This will download all parts of the nt database.
 update_blastdb.pl nt --decompress
+```
 
-The nt BLAST database is required for BLAST searches. Download the nt database prefix and the taxonomy database (optinal):
+#### The nt BLAST database is required for BLAST searches. Download the nt database prefix and the taxonomy database (optinal):
 
 ```bash
-1.	Download the Taxonomy Database (taxdb):
+#1.	Download the Taxonomy Database (taxdb):
     wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/taxdb.tar.gz
 
-2.	Extract the Taxonomy Database:
+#2.	Extract the Taxonomy Database:
     mkdir -p ~/blast_db
 	tar -xzvf taxdb.tar.gz -C ~/blast_db
 
-3.	Set the BLASTDB Environment Variable:
-	Add the following to your shell profile (e.g., ~/.bashrc):
-	export BLASTDB=~/blast_db
-	Then reload your profile:
-	source ~/.bashrc
+#3.	Set the BLASTDB Environment Variable:
+	#Add the following to your shell profile (e.g., ~/.bashrc):
+		export BLASTDB=~/blast_db
+	#Then reload your profile:
+		source ~/.bashrc
 
-4. Obtain the Taxdump Directory
-
-Download the NCBI taxdump archive from:
-ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz
-Extract it into a directory (for example, /home/FM/ysun/Storage/ysun_Phoebe/blobtoolkit/taxdump):
-mkdir -p /home/FM/ysun/Storage/ysun_Phoebe/blobtoolkit/taxdump
-tar -xzvf taxdump.tar.gz -C /home/FM/ysun/Storage/ysun_Phoebe/blobtoolkit/taxdump
+#4. Obtain the Taxdump Directory
+# Download the NCBI taxdump archive from:
+	ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump.tar.gz
+# Extract it into a directory (for example, /home/FM/ysun/Storage/ysun_Phoebe/blobtoolkit/taxdump):
+	mkdir -p /home/FM/ysun/Storage/ysun_Phoebe/blobtoolkit/taxdump
+	tar -xzvf taxdump.tar.gz -C /home/FM/ysun/Storage/ysun_Phoebe/blobtoolkit/taxdump
+```
 
 ### 4. Usage (use the nt BLAST database and taxdump location as default)
 
