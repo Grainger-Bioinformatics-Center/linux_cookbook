@@ -99,45 +99,54 @@ bash filter_lichen_assemblies.sh --fasta assembly.fasta -1 reads_1.fq.gz -2 read
 ### 5. What the Script Does
 
 ```
-1.	Mapping Reads (Optional):
-	If paired-end reads are provided (-1 and -2), the script:
-		•Builds a Bowtie2 index for the assembly.
-		•Maps the reads to the assembly.
-		•Sorts the alignments into a BAM file.
-		•Forces creation of a CSI index using samtools index -c (required by BlobToolKit2).
-2.	Generating BLAST Hits:
-	Runs BLASTn against the nt database to obtain taxonomic hits. If the BLAST output file already exists, this step is skipped.
-3.	Creating a BlobDir:
-	Uses BlobToolKit2’s add command with --create and --replace to generate a BlobDir dataset from:
-		•The assembly FASTA.
-		•Coverage information (if available).
-		•BLAST hits.
-		•The provided taxdump directory.
-4.	Filtering Contigs:
-	Uses BlobToolKit2’s filter command to remove contigs that:
-		•Have coverage less than 0.1×.
-		•Are shorter than 1000 bp.
-		•Are assigned to contaminant domains (Bacteria, Viruses, or Archaeplastida).
+1.Mapping Reads (Optional):
+
+If paired-end reads are provided (-1 and -2), the script:
+	•Builds a Bowtie2 index for the assembly.
+	•Maps the reads to the assembly.
+	•Sorts the alignments into a BAM file.
+	•Forces creation of a CSI index using samtools index -c (required by BlobToolKit2).
+
+2.Generating BLAST Hits:
+
+Runs BLASTn against the nt database to obtain taxonomic hits. If the BLAST output file already exists, this step is skipped.
+
+3.Creating a BlobDir:
+
+Uses BlobToolKit2’s add command with --create and --replace to generate a BlobDir dataset from:
+	•The assembly FASTA.
+	•Coverage information (if available).
+	•BLAST hits.
+	•The provided taxdump directory.
+4.Filtering Contigs:
+
+Uses BlobToolKit2’s filter command to remove contigs that:
+	•Have coverage less than 0.1×.
+	•Are shorter than 1000 bp.
+	•Are assigned to contaminant domains (Bacteria, Viruses, or Archaeplastida).
 ```
 
 ```
 The filtered assembly is saved as <basename>.filtered.fasta in the OUTPUT directory.
 
-Output Files
+1. Output Files
 	•BlobDir Dataset:
-Created in a directory named blobdir_<basename> (e.g., blobdir_assembly).
+2. Created in a directory named blobdir_<basename> (e.g., blobdir_assembly).
 	•Filtered Assembly:
-Saved in the OUTPUT directory (default: blobtools) with the filename <basename>.filtered.fasta.
+3. Saved in the OUTPUT directory (default: blobtools) with the filename <basename>.filtered.fasta.
 ```
 
 ### Additional Notes
 ```
 •Taxonomy Database Warning:
-	If BLAST issues warnings about taxonomy name lookups (e.g., “Taxonomy name lookup from taxid requires installation of taxdb database…”), ensure that you have downloaded and extracted taxdb.tar.gz from
-	ftp://ftp.ncbi.nlm.nih.gov/blast/db/taxdb.tar.gz
-	and that the BLASTDB environment variable is set to the directory containing these files.
+
+If BLAST issues warnings about taxonomy name lookups (e.g., “Taxonomy name lookup from taxid requires installation of taxdb database…”), ensure that you have downloaded and extracted taxdb.tar.gz from ftp://ftp.ncbi.nlm.nih.gov/blast/db/taxdb.tar.gz and that the BLASTDB environment variable is set to the directory containing these files.
+
 •Field Replacement:
-	The --replace flag in the BlobDir creation step forces recalculation of taxonomy fields if they already exist. Remove it if you want to preserve existing field values.
+
+The --replace flag in the BlobDir creation step forces recalculation of taxonomy fields if they already exist. Remove it if you want to preserve existing field values.
+
 •Customizing Filters:
-	The --param options in the filter command let you adjust numeric thresholds (e.g., for coverage and contig length) and to exclude contigs based on taxonomy. Modify these parameters as needed.
+
+The --param options in the filter command let you adjust numeric thresholds (e.g., for coverage and contig length) and to exclude contigs based on taxonomy. Modify these parameters as needed.
 ```
