@@ -26,9 +26,10 @@ Then install additional dependencies using conda. For example:
 
 ```bash
 conda install -c conda-forge -c bioconda -c tolkit -c r -c defaults python=3.8.8 aria2=1.35.0 busco=5.1.2 defusedxml=0.7.1 diamond=2.0.8 docopt=0.6.2 geckodriver=0.29.0 minimap2=2.17 mosdepth=0.2.9 nodejs=14.14.0 pip=21.0.1 psutil=5.8.0 pysam=0.16.0.1 pyvirtualdisplay=2.1 pyyaml=5.4.1 samtools=1.10 selenium=3.141.0 seqtk=1.3 snakemake=6.0.5 tolkein=0.2.6 tqdm=4.59.0 ujson=4.0.2 urllib3=1.26.3 -y && conda run -n btk_env pip install fastjsonschema==2.15.0
+```
 
-# BlobToolKit2 is not available as a conda package,
-# Install it via pip or follow its installation instructions.
+#### BlobToolKit2 is not available as a conda package,
+#### Install it via pip or follow its installation instructions.
 
 ```bash
 pip install blobtoolkit
