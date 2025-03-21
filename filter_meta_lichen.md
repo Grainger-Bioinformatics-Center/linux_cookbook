@@ -89,11 +89,12 @@ The pipeline script is written in Bash and accepts the following command-line op
 
 Example Command
 
+```bash
 bash filter_lichen_assemblies.sh --fasta assembly.fasta -1 reads_1.fq.gz -2 reads_2.fq.gz \
     --nt /home/FM/ysun/Storage/ysun_Phoebe/blobtoolkit/nt/nt \
     --taxdump /home/FM/ysun/Storage/ysun_Phoebe/blobtoolkit/taxdump -T 20 \
     --blobtools2 /home/FM/ysun/miniforge3/envs/btk_env/bin/blobtools
-
+```
 
 ### 5. What the Script Does
 	1.	Mapping Reads (Optional):
