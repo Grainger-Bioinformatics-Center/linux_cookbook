@@ -78,6 +78,7 @@ update_blastdb.pl nt --decompress
 
 ### 4. Usage (use the nt BLAST database and taxdump location as default)
 
+```
 The pipeline script is written in Bash and accepts the following command-line options:
 	•	--fasta: Assembly FASTA file (required).
 	•	-1: Forward reads FASTQ file (optional).
@@ -86,6 +87,7 @@ The pipeline script is written in Bash and accepts the following command-line op
 	•	--taxdump: Path to the taxdump directory (optional; default: /home/FM/ysun/Storage/ysun_Phoebe/blobtoolkit/taxdump).
 	•	-T or --threads: Number of CPU cores to use (required).
 	•	--blobtools2: Path to the BlobToolKit2 executable (optional; default: /home/FM/ysun/miniforge3/envs/btk_env/bin/blobtools).
+```
 
 Example Command
 
