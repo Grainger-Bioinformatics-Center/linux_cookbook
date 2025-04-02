@@ -58,20 +58,20 @@ mpirun -np 4 rb-mpi [additional arguments]
 
 ### Troubleshooting
 
-####•	MPI Library Consistency:
+•	MPI Library Consistency:
 Ensure that the mpirun being used is from your active Conda environment:
 ```bash
 which mpirun
 ```
 It should point to a path within your revbayes-env.
 
-####•	Dynamic Linking Errors:
+•	Dynamic Linking Errors:
 If you encounter linking issues, add your Conda environment’s library path to LD_LIBRARY_PATH:
 ```bash
 export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
 ```
 
-####•	Clean Environment:
+•	Clean Environment:
 If problems persist, try removing and recreating the Conda environment:
 ```bash
 conda remove -n revbayes-env --all
