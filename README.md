@@ -41,7 +41,7 @@
 [Annotation of Lichen Genomes](pipe_annotation.md)  
 [Annotation of Complex Genomes](ComplexGenomeAnnotation.md)  
 [Funannotation installation](funannotation_installation.md)  
-[Funannotation usage](funannotation_usage.md)
+[Funannotation usage](funannotate_usage.md)
  
 ## TE Annotation ##
 [REPET instruction](REPET_usage.md)  
