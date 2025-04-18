@@ -18,7 +18,7 @@
 [Installation of BEAST2 (single core and multi core)](install_BEAST2.md)  
 [Installation of MrBayes (single core and multi core)](install_mrbayes.md)  
 [Installation of Phyml (single core and multi core)](install_phyml.md)  
-[Installation of RAxML (single core and multi core)](install_raxml.md)  
+[Installation of RAxML (single core and multi core)](install_raxml.md) 
 [Installation of RevBayes (single core and multi core)](RevBayes_Installation.md)
 
 ## Installation of Programs for Microbiome analyses ##  
@@ -40,8 +40,8 @@
 [Installation of MAKER](install_maker.md)  
 [Annotation of Lichen Genomes](pipe_annotation.md)  
 [Annotation of Complex Genomes](ComplexGenomeAnnotation.md)  
-[Funannotation installation](funannotation_installation.md)
-[Funannotation usage](funannotation_usage.md)  
+[Funannotation installation](funannotation_installation.md)  
+[Funannotation usage](funannotation_usage.md)
  
 ## TE Annotation ##
 [REPET instruction](REPET_usage.md)  
