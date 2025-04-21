@@ -13,7 +13,7 @@ This repository provides a comprehensive, step-by-step command-line workflow to 
 5. [Repeat Masking in Iterative Rounds (RepeatMasker)](#repeat-masking-in-iterative-rounds-repeatmasker)
 6. [Gene Prediction and Annotation (Funannotate)](#gene-prediction-and-annotation-funannotate)
 7. [Outputs Summary](#outputs-summary)
-8. [License](#license)
+8. [NCBI Submission Preparation](#ncbi-submission-preparation)
 
 ---
 
@@ -84,14 +84,14 @@ After running, you will have:
 
 3. **Prefix and split library**
    ```bash
-   seqkit fx2tab < GenomeDB-families.fa \
-     | awk '{print "MySpecies_" $0}' \
+   seqkit fx2tab < GenomeDB-families.fa \\
+     | awk '{print "MySpecies_" $0}' \\
      | seqkit tab2fx > GenomeDB-families.prefix.fa
 
-   seqkit fx2tab < GenomeDB-families.prefix.fa \
+   seqkit fx2tab < GenomeDB-families.prefix.fa \\
      | grep -v "Unknown" | seqkit tab2fx > GenomeDB-families.known.fa
 
-   seqkit fx2tab < GenomeDB-families.prefix.fa \
+   seqkit fx2tab < GenomeDB-families.prefix.fa \\
      | grep "Unknown"  | seqkit tab2fx > GenomeDB-families.unknown.fa
    ```
    - **Output:**
@@ -105,58 +105,56 @@ After running, you will have:
 
 ### Round 1: Simple repeats & low-complexity
 ```bash
-RepeatMasker -pa 8 -a -e ncbi -dir 01_simple_out -noint -xsmall data/genome.fasta \
+RepeatMasker -pa 8 -a -e ncbi -dir 01_simple_out -noint -xsmall data/genome.fasta \\
   2>&1 | tee logs/01_simplemask.log
 ```
-- **Output:**
-  - `01_simple_out/genome.simple_mask.masked.fasta`
-  - `.out`, `.align`, `.tbl`, `.cat.gz`
+- **Output:** Masked genome and report files in `01_simple_out/`
 
 ### Round 2: Known fungal repeats
 ```bash
-RepeatMasker -pa 16 -a -e ncbi -dir 02_fungi_out -nolow \
-  -species fungi 01_simple_out/genome.simple_mask.masked.fasta \
+RepeatMasker -pa 16 -a -e ncbi -dir 02_fungi_out -nolow \\
+  -species fungi 01_simple_out/genome.simple_mask.masked.fasta \\
   2>&1 | tee logs/02_fungimask.log
 ```
-- **Output:** `02_fungi_out/genome.fungi_mask.masked.fasta`, `.out`, `.align`, `.tbl`, `.cat.gz`
+- **Output:** Masked genome and report files in `02_fungi_out/`
 
 ### Round 3: Species-specific known repeats
 ```bash
-RepeatMasker -pa 16 -a -e ncbi -dir 03_known_out -nolow \
-  -lib GenomeDB-families.known.fa \
-  02_fungi_out/genome.fungi_mask.masked.fasta \
+RepeatMasker -pa 16 -a -e ncbi -dir 03_known_out -nolow \\
+  -lib GenomeDB-families.known.fa \\
+  02_fungi_out/genome.fungi_mask.masked.fasta \\
   2>&1 | tee logs/03_knownmask.log
 ```
-- **Output:** `03_known_out/genome.known_mask.masked.fasta`, `.out`, `.align`, `.tbl`, `.cat.gz`
+- **Output:** Masked genome and report files in `03_known_out/`
 
 ### Round 4: Species-specific unknown repeats
 ```bash
-RepeatMasker -pa 16 -a -e ncbi -dir 04_unknown_out -nolow \
-  -lib GenomeDB-families.unknown.fa \
-  03_known_out/genome.known_mask.masked.fasta \
+RepeatMasker -pa 16 -a -e ncbi -dir 04_unknown_out -nolow \\
+  -lib GenomeDB-families.unknown.fa \\
+  03_known_out/genome.known_mask.masked.fasta \\
   2>&1 | tee logs/04_unknownmask.log
 ```
-- **Output:** `04_unknown_out/genome.unknown_mask.masked.fasta`, `.out`, `.align`, `.tbl`, `.cat.gz`
+- **Output:** Masked genome and report files in `04_unknown_out/`
 
 ### Combine all rounds
 ```bash
 mkdir -p 05_full_out
-cat 01_simple_out/*.cat.gz 02_fungi_out/*.cat.gz 03_known_out/*.cat.gz 04_unknown_out/*.cat.gz \
+cat 01_simple_out/*.cat.gz 02_fungi_out/*.cat.gz 03_known_out/*.cat.gz 04_unknown_out/*.cat.gz \\
   > 05_full_out/genome.full_mask.cat.gz
 
-cat 01_simple_out/*.out \
-  <(tail -n +4 02_fungi_out/*.out) \
-  <(tail -n +4 03_known_out/*.out) \
-  <(tail -n +4 04_unknown_out/*.out) \
+cat 01_simple_out/*.out \\
+  <(tail -n +4 02_fungi_out/*.out) \\
+  <(tail -n +4 03_known_out/*.out) \\
+  <(tail -n +4 04_unknown_out/*.out) \\
   > 05_full_out/genome.full_mask.out
 
-cat 01_simple_out/*.align 02_fungi_out/*.align 03_known_out/*.align 04_unknown_out/*.align \
+cat 01_simple_out/*.align 02_fungi_out/*.align 03_known_out/*.align 04_unknown_out/*.align \\
   > 05_full_out/genome.full_mask.align
 ```
 
 ### Summarize combined repeats
 ```bash
-ProcessRepeats -a -species fungi 05_full_out/genome.full_mask.cat.gz \
+ProcessRepeats -a -species fungi 05_full_out/genome.full_mask.cat.gz \\
   2>&1 | tee logs/05_fullmask.log
 ```
 
@@ -164,60 +162,86 @@ ProcessRepeats -a -species fungi 05_full_out/genome.full_mask.cat.gz \
 ```bash
 rmOutToGFF3custom -o 05_full_out/genome.full_mask.out > 05_full_out/genome.full_mask.gff3
 
-bedtools maskfasta -soft -fi data/genome.fasta \
-  -bed 05_full_out/genome.full_mask.gff3 \
-  -fo 05_full_out/genome.full_mask.soft.fasta
+bedtools maskfasta -soft -fi data/genome.fasta \\
+  -bed 05_full_out/genome.full_mask.gff3 \\  
+  -fo 05_full_out/xxx.full_mask.soft.fasta
 ```
 
 ---
 
 ## Gene Prediction and Annotation (Funannotate)
 
-### 1. Train with RNA‑seq
+### 1. Prepare masked genome for Funannotate
+Use your project’s filename prefix **`xxx`** when substituting paths below.  
 ```bash
-funannotate train -i 05_full_out/genome.full_mask.soft.fasta -o fun \
-  -l data/reads_R1.fastq.gz -r data/reads_R2.fastq.gz \
+genome_fasta="05_full_out/xxx.full_mask.soft.fasta"
+```
+
+### 2. Train with RNA‑seq
+```bash
+funannotate train -i "$genome_fasta" -o fun \\
+  -l data/reads_R1.fastq.gz -r data/reads_R2.fastq.gz \\
   --jaccard_clip --stranded no --cpus 16
 ```
-- **Output:** `fun/` contains aligned BAMs, Trinity transcripts, PASA GFF3
 
-### 2. Predict gene models
+### 3. Predict gene models
 ```bash
-funannotate predict -i 05_full_out/genome.full_mask.soft.fasta -o fun \
-  -s "Genus species" --strain "MyStrain" --cpus 16 \
-  --augustus_species anidulans --busco_db fungi \
-  --transcript_evidence fun/training/funannotate_train.trinity.fasta \
-  --other_gff fun/training/funannotate_train.transcripts.gff3 \
+funannotate predict -i "$genome_fasta" -o fun \\
+  -s "Genus species" --strain "MyStrain" --cpus 16 \\
+  --augustus_species anidulans --busco_db fungi \\
+  --transcript_evidence fun/training/funannotate_train.trinity.fasta \\
+  --other_gff fun/training/funannotate_train.transcripts.gff3 \\
   --name SPECIES_
 ```
-- **Output:** `fun/predict_results/` with GFF3, proteins.fa, transcripts.fa
 
-### 3. InterProScan
+### 4. InterProScan
 ```bash
-interproscan.sh -i fun/predict_results/Genus_species.proteins.fa \
+interproscan.sh -i fun/predict_results/Genus_species.proteins.fa \\
   -b interpro_out -pa -iprlookup -goterms --cpu 16
 ```
-- **Output:** `interpro_out.xml`, `.tsv`, etc.
 
-### 4. Functional annotation
+### 5. Functional annotation
 ```bash
-funannotate annotate -i fun -o fun \
-  --species "Genus species" --strain "MyStrain" \
+funannotate annotate -i fun -o fun \\
+  --species "Genus species" --strain "MyStrain" \\
   --busco_db ascomycota --iprscan interpro_out.xml --cpus 8
 ```
-- **Output:** `fun/annotate_results/` with final GFF3 and annotation tables
 
 ---
 
 ## Outputs Summary
 
-- **Masked genome:** `05_full_out/genome.full_mask.soft.fasta`
+- **Masked genome for annotation:** `05_full_out/xxx.full_mask.soft.fasta`
 - **Repeat annotations:** GFF3 and summary tables in `05_full_out/`
 - **Predicted genes:** `fun/predict_results/Genus_species.gff3`, `.proteins.fa`, `.transcripts.fa`
-- **Functional annotations:** `fun/annotate_results/`
+- **Functional annotations & tables:** `fun/annotate_results/` including `xxx.tbl` and `xxx.contigs.fa`
 
 ---
 
-## License
+## NCBI Submission Preparation
 
-This pipeline is released under the MIT License.
+### 1. Obtain NCBI submission template (`template.sbt`)
+Visit NCBI’s “Create Submission Template” page, enter submitter and organism details, and download `template.sbt`.
+
+### 2. Register BioProject & BioSample and obtain Locus Tag Prefix
+Use the NCBI BioProject and BioSample Submission Portals to create entries. Record the assigned locus tag prefix (e.g., `ACLMJK`).
+
+### 3. Prepare files for table2asn
+```bash
+tbl_file="fun/annotate_results/xxx.tbl"
+contig_fasta="fun/annotate_results/xxx.contigs.fa"
+template="template.sbt"
+locus_prefix="ACLMJK"
+```
+
+### 4. Generate ASN.1 submission file
+```bash
+table2asn -i "$contig_fasta" \\
+  -f "$tbl_file" \\
+  -t "$template" \\
+  -locus-tag-prefix "$locus_prefix" \\
+  -euk -a s -verbose -M n
+```
+
+---
+
